@@ -1,5 +1,7 @@
 # pico-assistant
-A tiny dashboard for Home Assistant, which you can build for yourself with a Raspberry Pi Pico W and a display module.
+A tiny dashboard for Home Assistant, which you can build for yourself with a Raspberry Pi Pico W and a Pimoroni display module:
+
+![Demo picture](https://raw.githubusercontent.com/Rookeh/pico-assistant/main/docs/demo.jpg?token=GHSAT0AAAAAABVT5KMS3AJBV3VZA4ZJUKMYYWGCKVQ)
 
 # Features
 
