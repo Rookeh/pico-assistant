@@ -84,7 +84,7 @@ However, having the Pico both render AND draw a SVG image currently appears to b
 
 Hence, instead of having the Pico render the SVG itself, we can do half of the work for it by manually transforming each required icon into a list of tuples representing a polygon, which the Display Pack's graphics library is able to draw.
 
-So, for each MDI icon that is used in your HA instance, you will need to obtain an SVG image and then run a transform operation to obtain point co-ordinates from the SVG path commands. There is a helpful tool by [@betravis](https://betravis.github.io/) available [here](https://betravis.github.io/shape-tools/path-to-polygon/) that will do this for you for any given SVG file. However, note that the polygon co-ordinates need to be integers, not floats, so some manual rounding will be required, which could result in certain icons not appearing quite as expected.
+So, for each MDI icon that is used in your HA instance and that you want represented on this dashboard, you will need to obtain an SVG image and then run a transform operation to obtain point co-ordinates from the SVG path commands. There is a helpful tool by [@betravis](https://betravis.github.io/) available [here](https://betravis.github.io/shape-tools/path-to-polygon/) that will do this for you for any given SVG file. However, note that the polygon co-ordinates need to be integers, not floats, so some manual rounding will be required, which could result in certain icons not appearing quite as expected.
 
 Once you have the tuple array, you will need to add it to the dictionary in `icons.py`, using the MDI icon name as the key. Some examples have been provided in that file for reference.
 
