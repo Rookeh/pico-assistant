@@ -1,4 +1,6 @@
+# Update this to point to your HA url.
 ha_instance = "http://your-home-assistant-instance:8123"
+# Example config, replace this with your desired layout.
 areas = {
     "Living Room": [
         {
