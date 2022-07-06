@@ -24,13 +24,16 @@ class HomeAssistant:
             deviceJson = response.json()            
             deviceName = deviceJson["attributes"]["friendly_name"]            
             deviceState = deviceJson["state"]
-            deviceIcon = deviceJson["attributes"]["icon"].split(":")[1]            
+            if "icon" in deviceJson["attributes"]:
+                deviceIcon = deviceJson["attributes"]["icon"].split(":")[1]
+            else:
+                deviceIcon = "default"
             response = None
             gc.collect()
             yield {
                 "name": deviceName,
                 "entity_id": device["entity_id"],
-                "on": deviceState == "on",
+                "on": deviceState is not "off" and deviceState is not "unknown",
                 "icon": deviceIcon,
                 "toggle_service": device["toggle_service"]
             }
@@ -56,4 +59,3 @@ class HomeAssistant:
         else:
             response = urequests.post(url, headers=headers, json=json)            
         return response
-        
