@@ -75,17 +75,17 @@ class Display:
       textWidth = self.display.measure_text(device["name"], 2)
       if button == "A":
           iX = textWidth / 2 - 20
-          iY = 62
-          tX = 0
+          iY = 60
+          tX = 1
           tY = 100
       elif button == "B":
           iX = textWidth / 2 - 20
           iY = self.height - 60
-          tX = 0
+          tX = 1
           tY = self.height - 20
       else:
           iX = self.width - (textWidth / 2)
-          iY = 62
+          iY = 60
           tX = self.width - textWidth
           tY = 100
       self.drawIcon(iX, iY, device["icon"], on)
