@@ -6,7 +6,7 @@ A tiny dashboard for Home Assistant, which you can build for yourself with a Ras
 # Features
 
 * Ability to control up to 3 devices in Home Assistant per page, using A/B/X buttons on the display as toggle controls.
-* Device name + icon ([caveat](#Icons)) is pulled from Home Assistant API, and highlights based on state (on/off).
+* Device names + icons ([see below](#Icons)) are pulled from Home Assistant API, and highlight based on state (on/off).
 * Sleep timer turns off display after 10 seconds of no input, wakes on any button press.
 * Automatic light/dark modes.
 
