@@ -17,6 +17,7 @@ You will need:
 * A micro-USB cable.
 * A UF2 image that supports both the Pico W & Display Pack.
   * Official Pimoroni images supporting the Pico W are currently in pre-release, I tested with [this](https://github.com/pimoroni/pimoroni-pico/actions/runs/2594804454) unofficial image.
+* A computer (presumably, the one you are reading this on!)
 * [Thonny](https://thonny.org/).
 
 Additionally, if your Pico W does not have any GPIO headers pre-attached, you will need:
