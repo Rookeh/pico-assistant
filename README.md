@@ -86,6 +86,6 @@ Hence, instead of having the Pico render the SVG itself, we can do half of the w
 
 So, for each MDI icon that is used in your HA instance and that you want represented on this dashboard, you will need to obtain an SVG image and then run a transform operation to obtain point co-ordinates from the SVG path commands. There is a helpful tool by [@betravis](https://betravis.github.io/) available [here](https://betravis.github.io/shape-tools/path-to-polygon/) that will do this for you for any given SVG file. However, note that the polygon co-ordinates need to be integers, not floats, so some manual rounding will be required, which could result in certain icons not appearing quite as expected.
 
-Once you have the tuple array, you will need to add it to the dictionary in `icons.py`, using the MDI icon name as the key. Some examples have been provided in that file for reference.
+Once you have the tuple array, you will need to add it to the dictionary in `icons.py`, using the MDI icon name as the key. Some examples have been provided in that file for reference, as well as a default icon that is used as a fallback if the icon name cannot be found in the dictionary.
 
 **NOTE:** If your polygon is beyond a certain size / complexity, it may still crash your Pico. Hence, you might have to find some lower complexity alternatives for certain MDI icons.
