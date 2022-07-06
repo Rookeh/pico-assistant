@@ -1,7 +1,7 @@
 from api import HomeAssistant
 import config
 from display import Display
-from pimoroni import Button
+from pimoroni import Button, RGBLED
 import utime
 
 class App:
@@ -13,6 +13,8 @@ class App:
         self.buttonB = Button(13)
         self.buttonX = Button(14)
         self.buttonY = Button(15)
+        self.led = RGBLED(6,7,8)
+        self.led.set_rgb(0,0,0)
         self.currentArea = 0
         self.devices = None
         self.display = Display()        
@@ -27,7 +29,7 @@ class App:
             self.currentArea = 0
     
     def refreshDevices(self):
-        self.display.clear()              
+        self.display.clear()
         area = list(self.areas.values())[self.currentArea]
         areaName = list(self.areas.keys())[self.currentArea]
         self.display.drawBackground(areaName)
@@ -46,8 +48,8 @@ class App:
             self.display.drawDevice(button, self.devices[deviceIndex], self.devices[deviceIndex]["on"])
         
     def sleep(self):
-        if not self.display.isCleared:
-            self.display.clear()
+        if not self.display.isAsleep:
+            self.display.sleep()
 
 app = App()
 app.refreshDevices()
