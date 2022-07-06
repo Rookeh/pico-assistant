@@ -35,9 +35,9 @@ class App:
         if len(self.devices) >= 1:
             self.display.drawDevice("A", self.devices[0], self.devices[0]["on"])
         if len(self.devices) >= 2:
-            self.display.drawDevice("B", self.devices[1], self.devices[0]["on"])
+            self.display.drawDevice("B", self.devices[1], self.devices[1]["on"])
         if len(self.devices) == 3:
-            self.display.drawDevice("X", self.devices[2], self.devices[0]["on"])
+            self.display.drawDevice("X", self.devices[2], self.devices[2]["on"])
         self.display.drawChangeAreaY()
         
     def toggleDevice(self, button, deviceIndex):
