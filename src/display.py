@@ -1,7 +1,6 @@
 import icons
 import gc
 from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY_2
-from pimoroni import Button
 import time
 
 class Display:
