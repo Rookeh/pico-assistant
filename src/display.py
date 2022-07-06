@@ -56,13 +56,14 @@ class Display:
           yield (int(x + xOffset), int(y + yOffset))
 
   def clear(self):
-      self.isCleared = True
+      self.isAsleep = True
       self.display.set_pen(self.eraserPen)
       self.display.clear()
       self.display.update()
   
   def drawBackground(self, areaName):
-      self.isCleared = False
+      self.isAsleep = False
+      self.display.set_backlight(0.5)
       self.display.set_pen(self.getHeaderPen())
       self.display.rectangle(0, 0, self.width, 50)
       self.display.set_pen(self.getFontPen())
@@ -94,7 +95,11 @@ class Display:
       self.display.update()  
       
   def drawChangeAreaY(self):
-      self.isCleared = False      
+      self.isAsleep = False      
       self.display.set_pen(self.getFontPen())
       self.display.text("Next Area", self.width - self.display.measure_text("Next Area", 2), self.height - 20, 240, 2)
       self.display.update()
+            
+  def sleep(self):
+      self.display.set_backlight(0)      
+      self.clear()
