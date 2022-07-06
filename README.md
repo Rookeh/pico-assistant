@@ -91,4 +91,6 @@ So, for each MDI icon that is used in your HA instance and that you want represe
 
 Once you have the tuple array, you will need to add it to the dictionary in `icons.py`, using the MDI icon name as the key. Some examples have been provided in that file for reference, as well as a default icon that is used as a fallback if the icon name cannot be found in the dictionary.
 
-**NOTE:** If your polygon is beyond a certain size / complexity, it may still crash your Pico. Hence, you might have to find some lower complexity alternatives for certain MDI icons.
+### Caveats:
+ * If your icon polygon is beyond a certain size / complexity, it may still crash your Pico. Hence, you might have to find some lower complexity alternatives for certain MDI icons.
+ * If your device shows with the default icon even if it has been added to the dictionary in `icons.py`, check the device in your Home Assistant Lovelace frontend; if the icon is inherited based on device class, you may find that you have to explicitly assign an icon to the device via Lovelace in order for the Home Assistant API to present that information.
