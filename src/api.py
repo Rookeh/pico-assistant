@@ -33,7 +33,7 @@ class HomeAssistant:
             yield {
                 "name": deviceName,
                 "entity_id": device["entity_id"],
-                "on": deviceState is not "off" and deviceState is not "unknown",
+                "on": deviceState not in ["off", "unknown", "unavailable"],
                 "icon": deviceIcon,
                 "toggle_service": device["toggle_service"]
             }
