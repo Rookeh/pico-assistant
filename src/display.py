@@ -1,5 +1,6 @@
 import icons
 import gc
+import jpegdec
 from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY_2
 import time
 
@@ -12,24 +13,33 @@ class Display:
       self.eraserPen = self.display.create_pen(0, 0, 0)
       self.inactivePen = self.display.create_pen(68, 115, 158)
       self.activePen = self.display.create_pen(253, 216, 53)
+      self.whitePen = self.display.create_pen(255, 255, 255)
+      self.display.set_backlight(0.5)
+      
+  def getHeaderFontPen(self):
+      now = time.localtime(time.time())
+      if now[3] >= 7 and now[3] <= 20:
+          return self.display.create_pen(225, 225, 225)          
+      else:
+          return self.display.create_pen(33, 33, 33)
     
   def getFontPen(self):
       now = time.localtime(time.time())
-      if now[3] >= 7 and now[3] <= 21:
+      if now[3] >= 7 and now[3] <= 20:
           return self.display.create_pen(33, 33, 33)
       else:
           return self.display.create_pen(225, 225, 225)
         
   def getBgPen(self):
       now = time.localtime(time.time())      
-      if now[3] >= 7 and now[3] <= 21:
+      if now[3] >= 7 and now[3] <= 20:
           return self.display.create_pen(250, 250, 250)
       else:
           return self.display.create_pen(17, 17, 17)
     
   def getHeaderPen(self):
       now = time.localtime(time.time())      
-      if now[3] >= 7 and now[3] <= 21:
+      if now[3] >= 7 and now[3] <= 20:
           return self.display.create_pen(3, 169, 244)
       else:
           return self.display.create_pen(40, 74, 89)
@@ -62,11 +72,10 @@ class Display:
   
   def drawBackground(self, areaName):
       self.isAsleep = False
-      self.display.set_backlight(0.5)
       self.display.set_pen(self.getHeaderPen())
       self.display.rectangle(0, 0, self.width, 50)
-      self.display.set_pen(self.getFontPen())
-      self.display.text(areaName, int(self.width - self.width / 2 - int(self.display.measure_text(areaName, 2) / 2)), 20, 240, 2)
+      self.display.set_pen(self.whitePen)
+      self.display.text(areaName, self.getCentreTextPosition(areaName), 20, 240, 2)
       self.display.set_pen(self.getBgPen())
       self.display.rectangle(0, 50, self.width, self.height - 50)
       self.display.update()
@@ -98,7 +107,41 @@ class Display:
       self.display.set_pen(self.getFontPen())
       self.display.text("Next Area", self.width - self.display.measure_text("Next Area", 2), self.height - 20, 240, 2)
       self.display.update()
+      
+  def renderCamera(self, areaName, imagePath):
+      self.isAsleep = False
+      xLabel = int(self.width - self.width / 2 - int(self.display.measure_text(areaName, 2) / 2))
+      if imagePath is not None:
+          try:
+            decoder = jpegdec.JPEG(self.display)
+            decoder.open_file(imagePath)
+            decoder.decode(0, 0, jpegdec.JPEG_SCALE_FULL)
+          except RuntimeError:
+              e = "Failed to display image"
+              self.display.set_pen(self.whitePen)
+              self.display.text(e, self.getCentreTextPosition(e), 100, 240, 2)
+              self.display.update()
+      self.display.set_pen(self.whitePen)
+      self.display.text(areaName, self.getCentreTextPosition(areaName), 200, 240, 2)
+      self.display.update()
+      
+  def getCentreTextPosition(self, text):
+      return int(self.width - self.width / 2 - int(self.display.measure_text(text, 2) / 2))
+      
+#  def renderCameraBytes(self, areaName, imageBytes):
+#      self.isAsleep = False
+#      if imageBytes is not None:
+#          decoder = jpegdec.JPEG(self.display)
+#          decoder.open_RAM(imageBytes)
+#          decoder.decode(0, 0, jpegdec.JPEG_SCALE_FULL)
+#      self.display.set_pen(self.whitePen)
+#      self.display.text(areaName, int(self.width - self.width / 2 - int(self.display.measure_text(areaName, 2) / 2)), 200, 240, 2)      
+#      self.display.update()
             
   def sleep(self):
       self.display.set_backlight(0)      
+      self.clear()
+      
+  def wake(self):
+      self.display.set_backlight(0.5)
       self.clear()
