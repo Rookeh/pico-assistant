@@ -13,5 +13,10 @@ areas = {
             "entity_id": "switch.desk_lamp",
             "toggle_service": "switch.toggle"
         }
-    ]   
+    ],
+    "Outside" : [
+        {
+            "entity_id": "camera.outside"
+        }
+    ]
 }
