@@ -9,6 +9,7 @@ A tiny dashboard for Home Assistant, which you can build for yourself with a Ras
 * Device names + icons ([see below](#Icons)) are pulled from Home Assistant API, and highlight based on state (on/off).
 * Sleep timer turns off display after 10 seconds of no input, wakes on any button press.
 * Automatic light/dark modes based on time of day.
+* **EXPERIMENTAL:** Support for camera entities.
 
 # Tools
 
@@ -65,11 +66,13 @@ In `secrets.py`, you need to provide the SSID and password for your WiFi network
 
 In `config.py`, you need to provide the URL to your Home Assistant instance, as well as a dictionary that defines the "areas" you wish to control. This does not map to the concept of Areas in Home Assistant, as that functionality is not exposed via the HA API; instead, think of these as pages on the display which you can cycle through.
 
-Each area can support controlling up to three devices in Home Assistant (the Display Pack has 4 buttons, so 3 can be used to control devices, the fourth button is used to switch areas).
+Each area can support controlling up to three devices in Home Assistant (the Display Pack has 4 buttons, so 3 can be used to control devices, the fourth button is used to switch areas). The value for each Area key is a nested array of dictionaries that define the entity ID and toggle service for each device in the area. 
 
-The value for each Area key is a nested array of dictionaries that define the entity ID and toggle service for each device in the area. An example configuration has been provided in `config.py` for reference.
+Alternatively, an area can instead contain a single entity in the `camera` domain. In this mode, no other devices can be controlled, and the entire page shows just the latest snapshot image from the camera entity (live video is not supported). It is recommended to reference a [camera_proxy](https://www.home-assistant.io/integrations/proxy/) entity instead of an actual camera, and set the `max_image_width` and `max_image_height` of the proxy entity to 320x240.
 
-If you add more than 3 devices to an area configuration, entries beyond the third item will be ignored.
+An example configuration has been provided in `config.py` for reference.
+
+If you add more than 3 devices (or more than a single camera) to an area configuration, the additional devices will be ignored.
 
 Once the above steps are complete, connect your Pico W to your machine and open Thonny. Make sure to select the Pico's MicroPython environment on the bottom-right of the Thonny window, then, once connected, upload each of the `.py` files to your device.
 
