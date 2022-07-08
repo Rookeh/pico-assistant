@@ -1,9 +1,11 @@
 import config
+import os
 import gc
 import secrets
 import time
 #import upip
 import urequests
+import utils
 import wlan
 
 class HomeAssistant:
@@ -15,6 +17,30 @@ class HomeAssistant:
         wlan.connect()
         # In case your UF2 does not include urequests - this only needs to be run once.
         #upip.install("micropython-urequests")
+        
+    def getCameraImage(self, camera_entity):
+        response = self.apiRequest("/api/camera_proxy/" + camera_entity)
+        if response.status_code == 200 and len(response.content) > 0:
+            fileName = camera_entity + ".jpg"
+            if utils.fileExists(fileName):
+                os.remove(fileName)
+            imgFile = open(fileName, "wb")
+            written = imgFile.write(response.content)
+            imgFile.close
+            if written > 0:
+                return fileName
+            else:
+                print("failed to write!")
+                return None
+        else:
+            return None
+        
+#    def getCameraImageBytes(self, camera_entity):
+#        response = self.apiRequest("/api/camera_proxy/" + camera_entity)
+#        if response.status_code == 200:
+#            return response.content
+#        else:
+#            return None        
         
     def getDevices(self, area):
         for device in area:            
