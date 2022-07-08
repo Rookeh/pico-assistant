@@ -19,7 +19,7 @@ You will need:
 * A [Pimoroni Pico Display Pack 2.0](https://shop.pimoroni.com/products/pico-display-pack-2-0?variant=39374122582099).
 * A micro-USB cable.
 * A UF2 image that supports both the Pico W & Display Pack.
-  * Official Pimoroni images supporting the Pico W are currently in pre-release, I tested with [this](https://github.com/pimoroni/pimoroni-pico/actions/runs/2594804454) unofficial image.
+  * Pimoroni's UF2 images added support for the Pico W as of version [1.19.2](https://github.com/pimoroni/pimoroni-pico/releases/tag/v1.19.2).
 * A computer (presumably, the one you are reading this on!)
 * [Thonny](https://thonny.org/).
 
