@@ -128,6 +128,7 @@ class Display:
   def getCentreTextPosition(self, text):
       return int(self.width - self.width / 2 - int(self.display.measure_text(text, 2) / 2))
       
+# TODO: Passing bytes directly to JPEGDEC seems to cause a lockup: https://github.com/pimoroni/pimoroni-pico/issues/435      
 #  def renderCameraBytes(self, areaName, imageBytes):
 #      self.isAsleep = False
 #      if imageBytes is not None:
