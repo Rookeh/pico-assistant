@@ -6,7 +6,11 @@ areas = {
         {
             "entity_id": "light.ceiling_light",
             "toggle_service": "light.toggle"
-        }
+        },
+        {
+            "entity_id": "media_player.living_room_tv",
+            "toggle_service": "media_player.toggle"
+        }        
     ],
     "Office" : [
         {
