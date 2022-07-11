@@ -11,3 +11,12 @@ def firstOrDefault(sequence, selector, default=None):
         if selector(s):
             return s
     return default
+
+def take(sequence, amount):
+    amount += 1
+    for s in sequence:
+        amount -= 1
+        if amount > 0:
+            yield s
+        else:
+            return
