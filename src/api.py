@@ -16,6 +16,7 @@ class HomeAssistant:
         self.base_url = config.ha_instance
         wlan.connect()
         # In case your UF2 does not include urequests - this only needs to be run once.
+        # Comment out line 7 until installed. Re-comment line 6 once installed.
         #upip.install("micropython-urequests")
         
     def getCameraImage(self, camera_entity):
@@ -34,7 +35,8 @@ class HomeAssistant:
                 return None
         else:
             return None
-        
+
+# TODO: Passing bytes directly to JPEGDEC seems to cause a lockup: https://github.com/pimoroni/pimoroni-pico/issues/435
 #    def getCameraImageBytes(self, camera_entity):
 #        response = self.apiRequest("/api/camera_proxy/" + camera_entity)
 #        if response.status_code == 200:
@@ -42,8 +44,8 @@ class HomeAssistant:
 #        else:
 #            return None        
         
-    def getDevices(self, area):
-        for device in area:            
+    def getDevices(self, devices):
+        for device in devices:
             response = self.apiRequest("/api/states/" + device["entity_id"])
             if not response.status_code == 200:
                 return
