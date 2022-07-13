@@ -81,7 +81,7 @@ class App:
             self.display.sleep()
 
 app = App()
-app.refreshDevices()
+app.refreshArea()
 lastUse = utime.ticks_ms()
 
 while True:    
