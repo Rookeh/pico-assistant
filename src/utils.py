@@ -1,4 +1,5 @@
 import os
+import utime
 
 def fileExists(path):
     try:
@@ -11,6 +12,10 @@ def firstOrDefault(sequence, selector, default=None):
         if selector(s):
             return s
     return default
+
+def getTimeString():
+    time = utime.localtime(utime.time())
+    return f"{time[3]:02}:{time[4]:02}"
 
 def take(sequence, amount):
     amount += 1
