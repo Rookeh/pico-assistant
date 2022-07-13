@@ -2,7 +2,8 @@ import icons
 import gc
 import jpegdec
 from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY_2
-import time
+import utils
+import utime
 
 class Display:
 
@@ -17,28 +18,28 @@ class Display:
       self.display.set_backlight(0.5)
       
   def getHeaderFontPen(self):
-      now = time.localtime(time.time())
+      now = utime.localtime(utime.time())
       if now[3] >= 7 and now[3] <= 20:
           return self.display.create_pen(225, 225, 225)          
       else:
           return self.display.create_pen(33, 33, 33)
     
   def getFontPen(self):
-      now = time.localtime(time.time())
+      now = utime.localtime(utime.time())
       if now[3] >= 7 and now[3] <= 20:
           return self.display.create_pen(33, 33, 33)
       else:
           return self.display.create_pen(225, 225, 225)
         
   def getBgPen(self):
-      now = time.localtime(time.time())      
+      now = utime.localtime(utime.time())      
       if now[3] >= 7 and now[3] <= 20:
           return self.display.create_pen(250, 250, 250)
       else:
           return self.display.create_pen(17, 17, 17)
     
   def getHeaderPen(self):
-      now = time.localtime(time.time())      
+      now = utime.localtime(utime.time())      
       if now[3] >= 7 and now[3] <= 20:
           return self.display.create_pen(3, 169, 244)
       else:
@@ -71,13 +72,15 @@ class Display:
       self.display.update()
   
   def drawBackground(self, areaName):
+      timeString = utils.getTimeString()
       self.isAsleep = False
       self.display.set_pen(self.getHeaderPen())
       self.display.rectangle(0, 0, self.width, 50)
-      self.display.set_pen(self.whitePen)
-      self.display.text(areaName, self.getCentreTextPosition(areaName), 20, 240, 2)
       self.display.set_pen(self.getBgPen())
       self.display.rectangle(0, 50, self.width, self.height - 50)
+      self.display.set_pen(self.whitePen)
+      self.display.text(areaName, self.getCentreTextPosition(areaName), 20, 240, 2)
+      self.display.text(timeString, self.width - self.display.measure_text(timeString, 2) - 10, 20, 240, 2)
       self.display.update()
 
   def drawDevice(self, button, device, on):
@@ -110,6 +113,7 @@ class Display:
       
   def renderCamera(self, areaName, imagePath):
       self.isAsleep = False
+      timeString = utils.getTimeString()
       xLabel = int(self.width - self.width / 2 - int(self.display.measure_text(areaName, 2) / 2))
       if imagePath is not None:
           try:
@@ -123,8 +127,9 @@ class Display:
               self.display.update()
       self.display.set_pen(self.whitePen)
       self.display.text(areaName, self.getCentreTextPosition(areaName), 200, 240, 2)
-      self.display.update()
-      
+      self.display.text(timeString, self.width - self.display.measure_text(timeString, 2) - 10, 200, 240, 2)      
+      self.display.update()    
+
   def getCentreTextPosition(self, text):
       return int(self.width - self.width / 2 - int(self.display.measure_text(text, 2) / 2))
       
