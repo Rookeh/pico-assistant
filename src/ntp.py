@@ -35,5 +35,5 @@ def setTime():
     else:
         # After DST or DST not observed, no shifting
         delta = delta + (int(offset * 3600))
-    utc = utime.gmtime((now - delta))
-    machine.RTC().datetime((utc[0], utc[1], utc[2], utc[6]+1, utc[3], utc[4], utc[5], 0))
+    local = utime.gmtime((now - delta))
+    machine.RTC().datetime((local[0], local[1], local[2], local[6]+1, local[3], local[4], local[5], 0))
