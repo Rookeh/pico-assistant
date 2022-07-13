@@ -8,8 +8,9 @@ A tiny dashboard for Home Assistant, which you can build for yourself with a Ras
 * Ability to control up to 3 devices in Home Assistant per page, using A/B/X buttons on the display as toggle controls.
 * Device names + icons ([see below](#Icons)) are pulled from Home Assistant API, and highlight based on state (on/off).
 * Sleep timer turns off display after 10 seconds of no input, wakes on any button press.
+* A clock, which obtains time from an NTP server on boot.
 * Automatic light/dark modes based on time of day.
-* **EXPERIMENTAL:** Support for camera entities.
+* Support for camera entities.
 
 # Tools
 
@@ -62,9 +63,26 @@ Copy the `.UF2` file that you obtained for this project to the root of the drive
 
 Next, open the following files in the text editor of your choice: `config.py` and `secrets.py`.
 
-In `secrets.py`, you need to provide the SSID and password for your WiFi network, and the long-lived access token for your Home Assistant instance. Instructions on generating such tokens can be found [here](https://developers.home-assistant.io/docs/auth_api/#long-lived-access-token).
+In `secrets.py`, you need to provide:
 
-In `config.py`, you need to provide the URL to your Home Assistant instance, as well as a dictionary that defines the "areas" you wish to control. This does not map to the concept of Areas in Home Assistant, as that functionality is not exposed via the HA API; instead, think of these as pages on the display which you can cycle through.
+* The SSID and password for your WiFi network.
+* The long-lived access token for your Home Assistant instance. 
+  * Instructions on generating such tokens can be found [here](https://developers.home-assistant.io/docs/auth_api/#long-lived-access-token).
+
+In `config.py`, you need to provide:
+
+* Your timezone, in UTC offset:
+  * For example: EST would be -5, GMT would be 0, NPT would be 5.75, etc.
+* Whether your timezone uses DST, and if so:
+  * The start date of DST in your timezone.
+  * The end date of DST in your timezone.
+  * The number of hours shifted during DST (in most of the world this would be 1, in rare cases it may be a fraction e.g. 0.5).
+* The base URL of your Home Assistant instance.
+* Area configuration; see below.
+
+## Area Config
+
+`config.py` contains a dictionary that defines the "areas" you wish to control. This does not map to the concept of Areas in Home Assistant, as that functionality is not exposed via the HA API; instead, think of these as pages on the display which you can cycle through.
 
 Each area can support controlling up to three devices in Home Assistant (the Display Pack has 4 buttons, so 3 can be used to control devices, the fourth button is used to switch areas). The value for each Area key is a nested array of dictionaries that define the entity ID and toggle service for each device in the area. 
 
