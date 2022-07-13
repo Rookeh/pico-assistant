@@ -1,4 +1,5 @@
 import network
+import ntp
 import secrets
 import time
 
@@ -8,3 +9,4 @@ def connect():
     wlan.connect(secrets.ssid, secrets.password)
     while not wlan.isconnected():
         time.sleep(1)
+    ntp.setTime()
