@@ -96,7 +96,7 @@ If you add more than 3 devices (or more than a single camera) to an area configu
 
 Once the above steps are complete, connect your Pico W to your machine and open Thonny. Make sure to select the Pico's MicroPython environment on the bottom-right of the Thonny window, then, once connected, upload each of the `.py` files to your device.
 
-**NOTE:** Depending on the UF2 image that you used, you *might* need to install the `urequests` package before running the display for the first time. To do this, uncomment the relavent lines in `api.py`, save to the Pico and then run `main.py` once manually in order for the Pico to connect to your network and install the package. 
+**NOTE:** Depending on the UF2 image that you used, you *might* need to install the `urequests` package before running the display for the first time. To do this, uncomment the relavent lines in `api.py`, save to the Pico and then run `main.py` once manually in order for the Pico to connect to your network and install the package. Alternatively, you can install `urequests` to the Pico via Thonny's package manager.
 
 Once installed, stop execution, re-comment or delete the lines, save and re-upload to the Pico.
 
