@@ -94,9 +94,9 @@ while True:
             app.refreshArea()
     else:
         if app.viewMode == ViewMode.CAMERA:
-            if app.buttonY.read():
-                lastUse = utime.ticks_ms()
+            if app.buttonY.read():                
                 app.changeArea()
+                lastUse = utime.ticks_ms()                
         elif app.viewMode == ViewMode.DEVICES:            
             if app.buttonA.read() and len(app.devices) >= 1:
                 lastUse = utime.ticks_ms()
