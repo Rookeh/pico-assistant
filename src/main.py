@@ -41,11 +41,8 @@ class App:
         self.viewMode = ViewMode.CAMERA        
         self.display.clear()        
         cameraName = list(self.areas.keys())[self.currentArea]
-        imagePath = self.haApi.getCameraImage(entityId)
-        self.display.renderCamera(cameraName, imagePath)        
-        # TODO: Passing bytes directly to JPEGDEC seems to cause a lockup: https://github.com/pimoroni/pimoroni-pico/issues/435
-        #imageBytes = self.haApi.getCameraImageBytes(entityId)
-        #self.display.renderCameraBytes(cameraName, imageBytes)                
+        imgBytes = self.haApi.getCameraImageBytes(entityId)
+        self.display.renderCamera(cameraName, imgBytes)                
             
     def refreshArea(self):
         devices = list(self.areas.values())[self.currentArea]

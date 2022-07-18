@@ -111,38 +111,25 @@ class Display:
       self.display.text("Next Area", self.width - self.display.measure_text("Next Area", 2), self.height - 20, 240, 2)
       self.display.update()
       
-  def renderCamera(self, areaName, imagePath):
+  def renderCamera(self, areaName, imgBytes):
       self.isAsleep = False
       timeString = utils.getTimeString()
-      xLabel = int(self.width - self.width / 2 - int(self.display.measure_text(areaName, 2) / 2))
-      if imagePath is not None:
-          try:
-            decoder = jpegdec.JPEG(self.display)
-            decoder.open_file(imagePath)
-            decoder.decode(0, 0, jpegdec.JPEG_SCALE_FULL)
-          except RuntimeError:
-              e = "Failed to display image"
-              self.display.set_pen(self.whitePen)
-              self.display.text(e, self.getCentreTextPosition(e), 100, 240, 2)
-              self.display.update()
+      if imgBytes is not None:
+          decoder = jpegdec.JPEG(self.display)      
+          decoder.open_RAM(memoryview(imgBytes))
+          decoder.decode(0, 0, jpegdec.JPEG_SCALE_FULL)
+      else:
+          e = "Failed to get camera image"
+          self.display.set_pen(self.whitePen)
+          self.display.text(e, self.getCentreTextPosition(e), 100, 240, 2)
+          self.display.update()
       self.display.set_pen(self.whitePen)
       self.display.text(areaName, self.getCentreTextPosition(areaName), 200, 240, 2)
       self.display.text(timeString, self.width - self.display.measure_text(timeString, 2) - 10, 200, 240, 2)      
-      self.display.update()    
+      self.display.update()  
 
   def getCentreTextPosition(self, text):
-      return int(self.width - self.width / 2 - int(self.display.measure_text(text, 2) / 2))
-      
-# TODO: Passing bytes directly to JPEGDEC seems to cause a lockup: https://github.com/pimoroni/pimoroni-pico/issues/435      
-#  def renderCameraBytes(self, areaName, imageBytes):
-#      self.isAsleep = False
-#      if imageBytes is not None:
-#          decoder = jpegdec.JPEG(self.display)
-#          decoder.open_RAM(imageBytes)
-#          decoder.decode(0, 0, jpegdec.JPEG_SCALE_FULL)
-#      self.display.set_pen(self.whitePen)
-#      self.display.text(areaName, int(self.width - self.width / 2 - int(self.display.measure_text(areaName, 2) / 2)), 200, 240, 2)      
-#      self.display.update()
+      return int(self.width - self.width / 2 - int(self.display.measure_text(text, 2) / 2))    
             
   def sleep(self):
       self.display.set_backlight(0)      
