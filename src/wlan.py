@@ -1,7 +1,7 @@
 import network
 import ntp
 import secrets
-import time
+import utime
 
 def connect():
     wlan = network.WLAN(network.STA_IF)
