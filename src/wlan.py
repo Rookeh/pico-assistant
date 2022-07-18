@@ -8,5 +8,5 @@ def connect():
     wlan.active(True)
     wlan.connect(secrets.ssid, secrets.password)
     while not wlan.isconnected():
-        time.sleep(1)
+        utime.sleep(1)
     ntp.setTime()
