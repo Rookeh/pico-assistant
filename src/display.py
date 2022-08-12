@@ -84,25 +84,33 @@ class Display:
       self.display.update()
 
   def drawDevice(self, button, device, on):
-      textWidth = self.display.measure_text(device["name"], 2)
+      nameWidth = self.display.measure_text(device["name"], 2)
+      stateWidth = self.display.measure_text(device["state"], 2)
       if button == "A":
-          iX = textWidth / 2 - 20
-          iY = 60
+          iX = nameWidth / 2 - 20
+          iY = 50
           tX = 1
-          tY = 100
+          tY = 80
+          sX = 1
+          sY = 95
       elif button == "B":
-          iX = textWidth / 2 - 20
+          iX = nameWidth / 2 - 20
           iY = self.height - 60
           tX = 1
-          tY = self.height - 20
+          tY = self.height - 30
+          sX = 1
+          sY = self.height - 15
       else:
-          iX = self.width - (textWidth / 2)
-          iY = 60
-          tX = self.width - textWidth
-          tY = 100
+          iX = self.width - (nameWidth / 2)
+          iY = 50
+          tX = self.width - nameWidth
+          tY = 80
+          sX = self.width - stateWidth
+          sY = 95
       self.drawIcon(iX, iY, device["icon"], on)
       self.display.set_pen(self.getFontPen())
       self.display.text(device["name"], tX, tY, 240, 2)
+      self.display.text(device["state"], sX, sY, 240, 2)
       self.display.update()  
       
   def drawChangeAreaY(self):

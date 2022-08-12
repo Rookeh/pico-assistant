@@ -30,21 +30,22 @@ class HomeAssistant:
             response = self.apiRequest("/api/states/" + device["entity_id"])
             if not response.status_code == 200:
                 return
-            deviceJson = response.json()            
-            deviceName = deviceJson["attributes"]["friendly_name"]            
+            deviceJson = response.json()                        
             deviceState = deviceJson["state"]
             if "icon" in deviceJson["attributes"]:
                 deviceIcon = deviceJson["attributes"]["icon"].split(":")[1]
             else:
                 deviceIcon = "default"
+            
             response = None
             gc.collect()
             yield {
-                "name": deviceName,
+                "name": deviceJson["attributes"]["friendly_name"],
                 "entity_id": device["entity_id"],
-                "on": deviceState not in ["off", "unknown", "unavailable"],
+                "on": deviceState in ["on", "playing"],
                 "icon": deviceIcon,
-                "toggle_service": device["toggle_service"]
+                "toggle_service": device.get("toggle_service", None),
+                "state": deviceState + deviceJson["attributes"].get("unit_of_measurement", "")
             }
             
     def toggleDevice(self, device):

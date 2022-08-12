@@ -69,7 +69,7 @@ class App:
         self.display.drawChangeAreaY()
         
     def toggleDevice(self, button, deviceIndex):
-        if self.haApi.toggleDevice(self.devices[deviceIndex]):
+        if self.devices[deviceIndex]["toggle_service"] is not None and self.haApi.toggleDevice(self.devices[deviceIndex]):
             self.devices[deviceIndex]["on"] = not self.devices[deviceIndex]["on"]
             self.display.drawDevice(button, self.devices[deviceIndex], self.devices[deviceIndex]["on"])
         

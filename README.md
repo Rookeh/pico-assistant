@@ -84,7 +84,7 @@ In `config.py`, you need to provide:
 
 `config.py` contains a dictionary that defines the "areas" you wish to control. This does not map to the concept of Areas in Home Assistant, as that functionality is not exposed via the HA API; instead, think of these as pages on the display which you can cycle through.
 
-Each area can support controlling up to three devices in Home Assistant (the Display Pack has 4 buttons, so 3 can be used to control devices, the fourth button is used to switch areas). The value for each Area key is a nested array of dictionaries that define the entity ID and toggle service for each device in the area. 
+Each area can support displaying or controlling up to three devices in Home Assistant (the Display Pack has 4 buttons, so 3 can be used to control devices, the fourth button is used to switch areas). The value for each Area key is a nested array of dictionaries that define the entity ID and (optionally) a toggle service for each device in the area. 
 
 Alternatively, an area can instead contain a single entity in the `camera` domain. In this mode, no other devices can be controlled, and the entire page shows just the latest snapshot image from the camera entity (live video is not supported). It is recommended to reference a [camera_proxy](https://www.home-assistant.io/integrations/proxy/) entity instead of an actual camera, and set the `max_image_width` and `max_image_height` of the proxy entity to 320x240.
 
