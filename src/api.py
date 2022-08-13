@@ -25,6 +25,32 @@ class HomeAssistant:
         else:
             return None
         
+    def getClimateData(self, entity_id):
+        response = self.apiRequest("/api/states/" + entity_id)
+        if not response.status_code == 200:
+            return None
+        climateJson = response.json()
+        climateData = {
+            "name": climateJson["attributes"]["friendly_name"],
+            "current_temp": climateJson["attributes"]["current_temperature"],
+            "target_temp": climateJson["attributes"]["temperature"],
+            "current_preset": climateJson["attributes"]["preset_mode"],
+            "supported_presets": climateJson["attributes"]["preset_modes"],
+            "state": climateJson["state"]
+        }
+        response = None
+        climateJson = None
+        return climateData
+    
+    def setClimateTarget(self, entity_id, targetTemp):
+        serviceData = {"entity_id": entity_id, "temperature": targetTemp}
+        response = self.apiRequest("/api/services/climate/set_temperature", serviceData, "POST")
+        statusCode = response.status_code
+        response = None
+        serviceData = None
+        gc.collect()
+        return statusCode == 200
+        
     def getDevices(self, devices):
         for device in devices:
             response = self.apiRequest("/api/states/" + device["entity_id"])
@@ -36,7 +62,6 @@ class HomeAssistant:
                 deviceIcon = deviceJson["attributes"]["icon"].split(":")[1]
             else:
                 deviceIcon = "default"
-            
             response = None
             gc.collect()
             yield {

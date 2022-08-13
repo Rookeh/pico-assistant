@@ -79,7 +79,7 @@ class Display:
       self.display.set_pen(self.getBgPen())
       self.display.rectangle(0, 50, self.width, self.height - 50)
       self.display.set_pen(self.whitePen)
-      self.display.text(areaName, self.getCentreTextPosition(areaName), 20, 240, 2)
+      self.display.text(areaName, self.getCentreTextPosition(areaName, 2), 20, 240, 2)
       self.display.text(timeString, self.width - self.display.measure_text(timeString, 2) - 10, 20, 240, 2)
       self.display.update()
 
@@ -133,11 +133,25 @@ class Display:
           self.display.update()
       self.display.set_pen(self.whitePen)
       self.display.text(areaName, self.getCentreTextPosition(areaName), 200, 240, 2)
-      self.display.text(timeString, self.width - self.display.measure_text(timeString, 2) - 10, 200, 240, 2)      
-      self.display.update()  
+      self.display.text(timeString, self.width - self.display.measure_text(timeString, 2) - 10, 200, 240, 2)
+      self.display.update()
+      
+  def renderClimate(self, climateData):
+      self.isAsleep = False
+      currentTempString = str(climateData["current_temp"]) + "°"
+      targetTempString = "(" + str(climateData["target_temp"]) + "°)"
+      incrementString = "+1°"
+      decrementString = "-1°"
+      self.display.set_pen(self.getFontPen())
+      self.display.text(currentTempString, self.getCentreTextPosition(currentTempString, 5), self.height - int(self.height / 2), 240, 5)
+      self.display.text(targetTempString, self.getCentreTextPosition(targetTempString, 4), self.height - int(self.height / 2) + 40, 240, 4)
+      self.display.text(incrementString, 1, 80, 240, 2)
+      self.display.text(decrementString, 1, self.height - 30, 240, 2)
+      self.display.text("Next Area", self.width - self.display.measure_text("Next Area", 2), self.height - 20, 240, 2)
+      self.display.update()
 
-  def getCentreTextPosition(self, text):
-      return int(self.width - self.width / 2 - int(self.display.measure_text(text, 2) / 2))    
+  def getCentreTextPosition(self, text, scale=2):
+      return int(self.width - self.width / 2 - int(self.display.measure_text(text, scale) / 2))
             
   def sleep(self):
       self.display.set_backlight(0)      
