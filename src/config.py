@@ -33,6 +33,11 @@ areas = {
             "toggle_service": "switch.toggle"
         }
     ],
+    "Hallway": [
+        {
+            "entity_id": "climate.nest_thermostat"
+        }
+    ],
     "Outside" : [
         {
             "entity_id": "camera.outside"
