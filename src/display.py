@@ -138,7 +138,6 @@ class Display:
       
   def renderClimate(self, climateData):
       self.isAsleep = False
-      timeString = utils.getTimeString()
       currentTempString = str(climateData["current_temp"]) + "°"
       targetTempString = "(" + str(climateData["target_temp"]) + "°)"
       incrementString = "+1°"
@@ -148,6 +147,7 @@ class Display:
       self.display.text(targetTempString, self.getCentreTextPosition(targetTempString, 4), self.height - int(self.height / 2) + 40, 240, 4)
       self.display.text(incrementString, 1, 80, 240, 2)
       self.display.text(decrementString, 1, self.height - 30, 240, 2)
+      self.display.text("Next Area", self.width - self.display.measure_text("Next Area", 2), self.height - 20, 240, 2)
       self.display.update()
 
   def getCentreTextPosition(self, text, scale=2):
