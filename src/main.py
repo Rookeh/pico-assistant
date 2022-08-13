@@ -138,7 +138,7 @@ while True:
             if app.buttonB.read():
                 app.adjustClimate(-1)
                 lastUse = utime.ticks_ms()
-            if app.buttonX.read():
-                app.cycleClimateMode()
-                lastUse = utime.ticks_ms()                
+            if app.buttonY.read():                
+                app.changeArea()
+                lastUse = utime.ticks_ms()
     utime.sleep(0.1)
