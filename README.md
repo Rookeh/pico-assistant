@@ -84,13 +84,15 @@ In `config.py`, you need to provide:
 
 `config.py` contains a dictionary that defines the "areas" you wish to control. This does not map to the concept of Areas in Home Assistant, as that functionality is not exposed via the HA API; instead, think of these as pages on the display which you can cycle through.
 
-Each area can support displaying or controlling up to three devices in Home Assistant (the Display Pack has 4 buttons, so 3 can be used to control devices, the fourth button is used to switch areas). The value for each Area key is a nested array of dictionaries that define the entity ID and (optionally) a toggle service for each device in the area. 
+An area can be configured in one of three ways:
 
-Alternatively, an area can instead contain a single entity in the `camera` domain. In this mode, no other devices can be controlled, and the entire page shows just the latest snapshot image from the camera entity (live video is not supported). It is recommended to reference a [camera_proxy](https://www.home-assistant.io/integrations/proxy/) entity instead of an actual camera, and set the `max_image_width` and `max_image_height` of the proxy entity to 320x240.
+1) Device Control: An area can support displaying or controlling up to three devices in Home Assistant (the Display Pack has 4 buttons, so 3 can be used as a toggle control for each device, the fourth button is used to switch areas). The value for each Area key is a nested array of dictionaries that define the entity ID and (optionally) a toggle service for each device in the area. If no toggle service is defined, the associated button does nothing.
+2) Camera: An area can contain a single entity in the `camera` domain. In this mode, no other devices can be controlled, and the entire page shows just the latest snapshot image from the camera entity (live video is not supported). It is recommended to reference a [camera_proxy](https://www.home-assistant.io/integrations/proxy/) entity instead of an actual camera, and set the `max_image_width` and `max_image_height` of the proxy entity to 320x240.
+3) Climate: In this mode, an area is set up to view and control a single entity in the `climate` domain. The current and target temperatures associated with the entity are displayed on the screen, and the A and B buttons are used to increment or decrement the target temperature in offsets of one degree.
 
 An example configuration has been provided in `config.py` for reference.
 
-If you add more than 3 devices (or more than a single camera) to an area configuration, the additional devices will be ignored.
+If you add more than 3 devices (or more than a single camera or climate entity) to an area configuration, the additional devices will be ignored.
 
 ## First Run
 
