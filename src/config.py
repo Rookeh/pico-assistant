@@ -31,6 +31,9 @@ areas = {
         {
             "entity_id": "switch.desk_lamp",
             "toggle_service": "switch.toggle"
+        },
+        {
+            "entity_id": "sensor.office_temperature"
         }
     ],
     "Hallway": [
