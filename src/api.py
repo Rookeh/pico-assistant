@@ -39,6 +39,7 @@ class HomeAssistant:
         }
         response = None
         climateJson = None
+        gc.collect()
         return climateData
     
     def setClimateTarget(self, entity_id, targetTemp):
