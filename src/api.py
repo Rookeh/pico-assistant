@@ -15,7 +15,6 @@ class HomeAssistant:
         self.base_url = config.ha_instance
         wlan.connect()
         # In case your UF2 does not include urequests - this only needs to be run once.
-        # Comment out line 7 until installed. Re-comment line 6 once installed.
         #upip.install("micropython-urequests")
         
     def getCameraImageBytes(self, camera_entity):             
